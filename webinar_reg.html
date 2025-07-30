@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register for MindCraft ThinkSpace's webinar on Digital Transformation in Africa">
+    <title>Register for Digital Transformation in Africa | MindCraft ThinkSpace</title>
+    
+    <!-- Preload resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" as="style">
+    <link rel="preload" href="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" as="image">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Additional styles for registration page */
+        .webinar-registration-hero {
+            background: linear-gradient(135deg, rgba(13, 46, 20, 0.9), rgba(7, 29, 12, 0.9)), 
+                        url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+            padding: 6rem 0 3rem;
+            color: var(--white);
+            position: relative;
+        }
+        
+        .webinar-registration-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M20 20l60 60M80 20L20 80" stroke="%23e8b417" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+            pointer-events: none;
+        }
+        
+        .webinar-registration-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+        
+        .webinar-details {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            align-self: start;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .webinar-details-header {
+            border-bottom: 1px solid var(--gray);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .webinar-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .webinar-category.technology {
+            background: rgba(41, 128, 185, 0.1);
+            color: #2980b9;
+        }
+        
+        .webinar-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .webinar-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .webinar-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .webinar-meta-item i {
+            color: var(--secondary);
+        }
+        
+        .webinar-description {
+            margin-bottom: 2rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .webinar-speaker {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+        
+        .webinar-speaker img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .speaker-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+        
+        .speaker-info p {
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+        
+        .registration-form-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .form-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .form-header h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: var(--text-light);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius-sm);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(212, 106, 26, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-footer {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .privacy-notice {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .privacy-notice a {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        .registration-success {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+        
+        .registration-success i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .registration-success h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .registration-success p {
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+        
+        .webinar-cta {
+            background: var(--lighter);
+            padding: 2rem;
+            border-radius: var(--radius-sm);
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 992px) {
+            .webinar-registration-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .webinar-details {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .webinar-registration-hero {
+                padding: 5rem 0 2rem;
+            }
+            
+            .webinar-registration-container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <div class="logo-img">M</div>
+                    <div class="logo-text">
+                        <h1>MindCraft</h1>
+                        <p>THINKSPACE</p>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <<li><a href="/">Home</a></li>
+                    <li><a href="webinar.html" class="active">Webinars</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/admin.html">Dashboard</a></li>
+                </ul>
+                <button class="mobile-menu" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="webinar-registration-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1>Register for Webinar</h1>
+                <p>Secure your spot for this exclusive session</p>
+                <div class="hero-breadcrumbs">
+                    <a href="/">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <a href="/webinars/">Webinars</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Registration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Content -->
+    <main class="webinar-registration-container">
+        <div class="webinar-details">
+            <div class="webinar-details-header">
+                <span class="webinar-category technology">Technology</span>
+                <h2 class="webinar-title">Digital Transformation in Africa: Trends and Opportunities</h2>
+                <div class="webinar-meta">
+                    <div class="webinar-meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>June 28, 2024</span>
+                    </div>
+                    <div class="webinar-meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>2:00 PM - 3:30 PM GMT</span>
+                    </div>
+                    <div class="webinar-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>150+ Registered</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="webinar-description">
+                <p>This webinar will explore how digital technologies are reshaping industries across Africa and creating new opportunities for innovation and growth. We'll examine key trends in fintech, e-commerce, and digital infrastructure, with case studies from successful African startups.</p>
+                
+                <p>Participants will gain insights into:</p>
+                <ul>
+                    <li>The current state of digital transformation across the continent</li>
+                    <li>Emerging technologies with the highest potential impact</li>
+                    <li>Strategies for overcoming infrastructure challenges</li>
+                    <li>Opportunities for investment and entrepreneurship</li>
+                </ul>
+            </div>
+            
+            <div class="webinar-speaker">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Dr. Kwame Osei" loading="lazy">
+                <div class="speaker-info">
+                    <h4>Dr. Kwame Osei</h4>
+                    <p>CTO, TechInnovate Africa</p>
+                    <p>Author of "Digital Africa: The Next Frontier"</p>
+                </div>
+            </div>
+            
+            <div class="webinar-cta">
+                <h3>Can't attend live?</h3>
+                <p>Register anyway and we'll send you the recording after the event</p>
+            </div>
+        </div>
+        
+        <div class="registration-form-container">
+            <div id="registration-form">
+                <div class="form-header">
+                    <h2>Register Now</h2>
+                    <p>Fill out this form to secure your spot</p>
+                </div>
+                
+                <form id="webinar-registration-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name *</label>
+                            <input type="text" id="first-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name *</label>
+                            <input type="text" id="last-name" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company/Organization</label>
+                        <input type="text" id="company" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="job-title">Job Title</label>
+                        <input type="text" id="job-title" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" class="form-control" required>
+                            <option value="">Select your country</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Egypt">Egypt</option>
+                            <!-- More African countries would be listed here -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="questions">Questions for the Speaker (Optional)</label>
+                        <textarea id="questions" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required>
+                            I agree to receive email updates about future webinars and events from MindCraft ThinkSpace
+                        </label>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Complete Registration <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <p class="privacy-notice">
+                            By registering, you agree to our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Service</a>.
+                        </p>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="registration-success" class="registration-success">
+                <i class="fas fa-check-circle"></i>
+                <h2>Registration Successful!</h2>
+                <p>Thank you for registering for "Digital Transformation in Africa: Trends and Opportunities". We've sent a confirmation email with the webinar details.</p>
+                <a href="/webinars/" class="btn btn-secondary">
+                    <i class="fas fa-video"></i> Browse More Webinars
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Newsletter CTA -->
+    <section class="newsletter-cta">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Never Miss a Webinar</h2>
+                <p>Subscribe to get notified about upcoming sessions and access to recordings</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required aria-label="Email address">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+                <p class="privacy-note">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2><span>MindCraft</span> ThinkSpace</h2>
+                    <p>...it all begins in the mind</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/webinars/">Webinars</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/user/login/">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Past Webinars</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Community Forum</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> hello@mindcraftthinkspace.com</li>
+                        <li><i class="fas fa-phone"></i> +254 700 123456</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2024</span> MindCraft ThinkSpace. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="/privacy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                this.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('header');
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+            
+            // Form submission
+            const registrationForm = document.getElementById('webinar-registration-form');
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // In a real implementation, you would send the form data to your server
+                    document.getElementById('registration-form').style.display = 'none';
+                    document.getElementById('registration-success').style.display = 'block';
+                    
+                    // Scroll to success message
+                    document.getElementById('registration-success').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

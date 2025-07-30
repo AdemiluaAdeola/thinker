@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Blog Post | MindCraft ThinkSpace Admin</title>
+    
+    <!-- Preload resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" as="style">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.snow.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0d2e14;
+            --primary-light: #1e4d2a;
+            --primary-dark: #071d0c;
+            --secondary: #d46a1a;
+            --secondary-light: #e67e22;
+            --secondary-dark: #b35716;
+            --accent: #e8b417;
+            --dark: #1e2b38;
+            --darker: #0f161e;
+            --light: #e0e6eb;
+            --lighter: #f0f2f5;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --white: #fff;
+            --black: #000;
+            --gray: #bdc3c7;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--lighter);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Layout */
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            transition: var(--transition);
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .sidebar-header h2 span {
+            color: var(--accent);
+        }
+
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+
+        .menu-title {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.85rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            margin: 0.25rem 0;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .menu-item.active {
+            border-left: 4px solid var(--accent);
+        }
+
+        .menu-item i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header */
+        .admin-header {
+            height: var(--header-height);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text);
+            cursor: pointer;
+            margin-right: 1.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+
+        /* Content Area */
+        .admin-content {
+            padding: 2rem;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Form Elements */
+        .form-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-label.required::after {
+            content: '*';
+            color: var(--danger);
+            margin-left: 0.25rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius-sm);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 46, 20, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Editor */
+        .editor-container {
+            border: 1px solid var(--gray);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .ql-toolbar {
+            border-top-left-radius: var(--radius-sm);
+            border-top-right-radius: var(--radius-sm);
+            border-bottom: none !important;
+        }
+
+        .ql-container {
+            border-bottom-left-radius: var(--radius-sm);
+            border-bottom-right-radius: var(--radius-sm);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Image Upload */
+        .image-upload {
+            border: 2px dashed var(--gray);
+            border-radius: var(--radius-sm);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary);
+        }
+
+        .image-upload i {
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .image-upload p {
+            color: var(--text-light);
+        }
+
+        .image-preview {
+            display: none;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            border-radius: var(--radius-sm);
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--danger);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(212, 106, 26, 0.1);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--lighter);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .admin-main {
+                margin-left: 0;
+            }
+            
+            .admin-main.active {
+                margin-left: var(--sidebar-width);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>Mind<span>Craft</span></h2>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <div class="menu-title">Main</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                
+                <div class="menu-title">Content</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-video"></i>
+                    Webinars
+                </a>
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-book-open"></i>
+                    Blog Posts
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    Speakers
+                </a>
+                
+                <div class="menu-title">Community</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-user-friends"></i>
+                    Members
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-comments"></i>
+                    Discussions
+                </a>
+                
+                <div class="menu-title">Settings</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    System Settings
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h3>Create Blog Post</h3>
+                </div>
+                
+                <div class="header-right">
+                    <div class="user-menu">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Admin User" class="user-avatar">
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1 class="page-title">Create New Blog Post</h1>
+                    <div>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Draft
+                        </button>
+                    </div>
+                </div>
+                
+                <form id="blog-post-form">
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="post-title" class="form-label required">Post Title</label>
+                            <input type="text" id="post-title" class="form-control" placeholder="Enter post title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="post-slug" class="form-label">Post Slug</label>
+                            <input type="text" id="post-slug" class="form-control" placeholder="Will be generated automatically">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="post-excerpt" class="form-label">Excerpt</label>
+                            <textarea id="post-excerpt" class="form-control form-textarea" placeholder="Brief summary of your post (appears in listings)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required">Featured Image</label>
+                            <div class="image-upload" id="image-upload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload or drag and drop</p>
+                                <p>Recommended size: 1200x630 pixels</p>
+                                <input type="file" id="featured-image" accept="image/*" style="display: none;">
+                            </div>
+                            <div class="image-preview" id="image-preview">
+                                <img id="preview-image" src="#" alt="Preview">
+                                <div class="remove-image" id="remove-image">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label class="form-label required">Post Content</label>
+                            <div id="editor" class="editor-container"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="post-category" class="form-label required">Category</label>
+                                <select id="post-category" class="form-control form-select" required>
+                                    <option value="">Select category</option>
+                                    <option value="mindset">Mindset</option>
+                                    <option value="business">Business</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="culture">Culture</option>
+                                    <option value="innovation">Innovation</option>
+                                    <option value="wellness">Wellness</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="post-author" class="form-label required">Author</label>
+                                <select id="post-author" class="form-control form-select" required>
+                                    <option value="">Select author</option>
+                                    <option value="1">Dr. Nia Adeola</option>
+                                    <option value="2">Kwame Osei</option>
+                                    <option value="3">Amina Mohammed</option>
+                                    <option value="4">Dr. Wanjiru Kariuki</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="post-tags" class="form-label">Tags</label>
+                            <div style="position: relative;">
+                                <input type="text" id="post-tags" class="form-control" placeholder="Add tags (press Enter to add)">
+                                <div class="tags-container" id="tags-container"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="post-status" class="form-label required">Status</label>
+                                <select id="post-status" class="form-control form-select" required>
+                                    <option value="draft">Draft</option>
+                                    <option value="published">Published</option>
+                                    <option value="scheduled">Scheduled</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="publish-date-group" style="display: none;">
+                                <label for="post-publish-date" class="form-label required">Publish Date</label>
+                                <input type="datetime-local" id="post-publish-date" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <div class="form-group">
+                            <label for="post-seo-title" class="form-label">SEO Title</label>
+                            <input type="text" id="post-seo-title" class="form-control" placeholder="Custom title for search engines">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="post-meta-description" class="form-label">Meta Description</label>
+                            <textarea id="post-meta-description" class="form-control form-textarea" placeholder="Brief description for search engines"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                        <button type="button" class="btn btn-outline">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="button" class="btn btn-secondary">
+                            <i class="fas fa-save"></i> Save Draft
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Publish Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar
+            const toggleSidebar = document.querySelector('.toggle-sidebar');
+            const adminSidebar = document.querySelector('.admin-sidebar');
+            const adminMain = document.querySelector('.admin-main');
+            
+            toggleSidebar.addEventListener('click', function() {
+                adminSidebar.classList.toggle('active');
+                adminMain.classList.toggle('active');
+            });
+            
+            // Initialize Quill editor
+            const quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                },
+                placeholder: 'Write your post content here...'
+            });
+            
+            // Image upload preview
+            const imageUpload = document.getElementById('image-upload');
+            const featuredImage = document.getElementById('featured-image');
+            const imagePreview = document.getElementById('image-preview');
+            const previewImage = document.getElementById('preview-image');
+            const removeImage = document.getElementById('remove-image');
+            
+            imageUpload.addEventListener('click', function() {
+                featuredImage.click();
+            });
+            
+            featuredImage.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        previewImage.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                        imageUpload.style.display = 'none';
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+            
+            removeImage.addEventListener('click', function() {
+                previewImage.src = '#';
+                featuredImage.value = '';
+                imagePreview.style.display = 'none';
+                imageUpload.style.display = 'block';
+            });
+            
+            // Tags functionality
+            const tagsInput = document.getElementById('post-tags');
+            const tagsContainer = document.getElementById('tags-container');
+            
+            tagsInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && this.value.trim() !== '') {
+                    e.preventDefault();
+                    
+                    const tag = document.createElement('div');
+                    tag.className = 'tag';
+                    tag.innerHTML = `
+                        ${this.value.trim()}
+                        <span class="tag-remove">&times;</span>
+                    `;
+                    
+                    tagsContainer.appendChild(tag);
+                    this.value = '';
+                    
+                    // Add remove functionality
+                    tag.querySelector('.tag-remove').addEventListener('click', function() {
+                        tag.remove();
+                    });
+                }
+            });
+            
+            // Show/hide publish date based on status
+            const postStatus = document.getElementById('post-status');
+            const publishDateGroup = document.getElementById('publish-date-group');
+            
+            postStatus.addEventListener('change', function() {
+                if (this.value === 'scheduled') {
+                    publishDateGroup.style.display = 'block';
+                } else {
+                    publishDateGroup.style.display = 'none';
+                }
+            });
+            
+            // Auto-generate slug from title
+            const postTitle = document.getElementById('post-title');
+            const postSlug = document.getElementById('post-slug');
+            
+            postTitle.addEventListener('input', function() {
+                const slug = this.value.toLowerCase()
+                    .replace(/[^\w\s-]/g, '') // Remove non-word chars
+                    .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+                    .replace(/^-+|-+$/g, ''); // Trim hyphens from start/end
+                
+                postSlug.value = slug;
+            });
+            
+            // Form submission
+            const blogPostForm = document.getElementById('blog-post-form');
+            
+            blogPostForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // In a real implementation, you would collect form data and send to server
+                const content = quill.root.innerHTML;
+                console.log('Form submitted with content:', content);
+                
+                // Show success message (in a real app, this would be after server response)
+                alert('Blog post published successfully!');
+            });
+        });
+    </script>
+</body>
+</html>

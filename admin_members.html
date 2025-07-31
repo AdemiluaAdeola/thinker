@@ -586,7 +586,7 @@
                     <i class='fas fa-home'></i>
                     View Site
                 </a>
-                <a href="admin.html" class="menu-item active">
+                <a href="admin.html" class="menu-item">
                     <i class="fas fa-tachometer-alt"></i>
                     Dashboard
                 </a>
@@ -599,7 +599,7 @@
                     Blog Posts
                 </a>
 
-                <a href="admin_members.html" class="menu-item">
+                <a href="admin_members.html" class="menu-item active">
                     <i class="fas fa-user-friends"></i>
                     Members
                 </a>
@@ -620,19 +620,14 @@
             <!-- Header -->
             <header class="admin-header">
                 <div class="header-left">
-                    <h3>Dashboard</h3>
+                    <h3>User Management</h3>
                 </div>
                 
                 <div class="header-right">
-                    <div class="notification-icon">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge">5</span>
-                    </div>
-                    
                     <div class="user-menu">
                         <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Admin User" class="user-avatar">
                         <span class="user-name">Admin User</span>
-                        <i class="fas fa-chevron-down"></i>
+                        
                     </div>
                 </div>
             </header>
@@ -640,214 +635,21 @@
             <!-- Content Area -->
             <div class="admin-content">
                 <div class="page-header">
-                    <h1 class="page-title">Dashboard Overview</h1>
-                    <div class="page-actions">
+                    <h1 class="page-title">Members</h1>
+                    <!-- <div class="page-actions">
                         <button class="btn btn-primary" onclick="window.location.href='admin_webinar_create.html';">
                             <i class="fas fa-plus"></i> New Webinar
                         </button>
                         <button class="btn btn-outline" onclick="window.location.href='blog_create.html';">
                             <i class="fas fa-plus"></i> New Blog Post
                         </button>
-                    </div>
+                    </div> -->
                 </div>
                 
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="card stat-card primary">
-                        <div class="stat-icon primary">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>1,248</h3>
-                            <p>Total Members</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card stat-card success">
-                        <div class="stat-icon success">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>24</h3>
-                            <p>Upcoming Webinars</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card stat-card warning">
-                        <div class="stat-icon warning">
-                            <i class="fas fa-book-open"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>56</h3>
-                            <p>Blog Posts</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card stat-card danger">
-                        <div class="stat-icon danger">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>32</h3>
-                            <p>Pending Comments</p>
-                        </div>
-                    </div>
-                </div>
                 
-                <!-- Charts Row -->
-                <div class="row">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Member Growth</h4>
-                            <div class="card-actions">
-                                <select class="form-control form-select">
-                                    <option>Last 7 Days</option>
-                                    <option>Last 30 Days</option>
-                                    <option selected>Last 12 Months</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="membersChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Recent Activity & Upcoming Webinars -->
-                <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                    <!-- Recent Activity -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Recent Activity</h4>
-                            <div class="card-actions">
-                                <button class="btn btn-sm btn-outline">View All</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="activity-list">
-                                <div class="activity-item" style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gray);">
-                                    <div style="width: 40px; height: 40px; background: rgba(13, 46, 20, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
-                                        <i class="fas fa-user-plus"></i>
-                                    </div>
-                                    <div>
-                                        <p style="font-size: 0.9rem; margin-bottom: 0.25rem;"><strong>12 new members</strong> joined this week</p>
-                                        <p style="font-size: 0.8rem; color: var(--text-light);">2 hours ago</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="activity-item" style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gray);">
-                                    <div style="width: 40px; height: 40px; background: rgba(231, 76, 60, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--danger);">
-                                        <i class="fas fa-comment-alt"></i>
-                                    </div>
-                                    <div>
-                                        <p style="font-size: 0.9rem; margin-bottom: 0.25rem;"><strong>5 new comments</strong> need moderation</p>
-                                        <p style="font-size: 0.8rem; color: var(--text-light);">5 hours ago</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="activity-item" style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gray);">
-                                    <div style="width: 40px; height: 40px; background: rgba(243, 156, 18, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--warning);">
-                                        <i class="fas fa-video"></i>
-                                    </div>
-                                    <div>
-                                        <p style="font-size: 0.9rem; margin-bottom: 0.25rem;">Webinar <strong>"Digital Transformation"</strong> scheduled</p>
-                                        <p style="font-size: 0.8rem; color: var(--text-light);">Yesterday</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="activity-item" style="display: flex; gap: 1rem; padding: 1rem 0;">
-                                    <div style="width: 40px; height: 40px; background: rgba(39, 174, 96, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--success);">
-                                        <i class="fas fa-book-open"></i>
-                                    </div>
-                                    <div>
-                                        <p style="font-size: 0.9rem; margin-bottom: 0.25rem;">New blog post <strong>"African Storytelling"</strong> published</p>
-                                        <p style="font-size: 0.8rem; color: var(--text-light);">2 days ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Upcoming Webinars -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Upcoming Webinars</h4>
-                            <div class="card-actions">
-                                <button class="btn btn-sm btn-outline">View All</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Date</th>
-                                            <th>Registrations</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center;">
-                                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" class="user-avatar-sm">
-                                                    Digital Transformation
-                                                </div>
-                                            </td>
-                                            <td>Jun 28, 2024</td>
-                                            <td>156</td>
-                                            <td><span class="badge badge-success">Active</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center;">
-                                                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" class="user-avatar-sm">
-                                                    Sustainable Business
-                                                </div>
-                                            </td>
-                                            <td>Jul 5, 2024</td>
-                                            <td>89</td>
-                                            <td><span class="badge badge-success">Active</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center;">
-                                                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=761&q=80" class="user-avatar-sm">
-                                                    African Storytelling
-                                                </div>
-                                            </td>
-                                            <td>Jul 12, 2024</td>
-                                            <td>124</td>
-                                            <td><span class="badge badge-success">Active</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center;">
-                                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" class="user-avatar-sm">
-                                                    Fintech Revolution
-                                                </div>
-                                            </td>
-                                            <td>Jul 19, 2024</td>
-                                            <td>0</td>
-                                            <td><span class="badge badge-warning">Draft</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Recent Members -->
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Recent Members</h4>
-                        <div class="card-actions">
-                            <button class="btn btn-sm btn-outline">View All</button>
-                        </div>
+                        <h4 class="card-title">All Registered Members(2000)</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
